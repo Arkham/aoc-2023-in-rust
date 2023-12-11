@@ -1,7 +1,6 @@
 advent_of_code::solution!(10);
 
 use colored::Colorize;
-
 use nom::{
     branch::alt,
     character::complete::{char, multispace1},
