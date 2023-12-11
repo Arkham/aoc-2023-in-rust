@@ -36,7 +36,7 @@ fn from_input(input: &str) -> IResult<&str, Vec<Race>> {
 
     let races: Vec<Race> = times
         .into_iter()
-        .zip(distances.into_iter())
+        .zip(distances)
         .map(|(time, distance)| Race { time, distance })
         .collect();
 

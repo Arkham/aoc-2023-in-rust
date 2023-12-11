@@ -113,8 +113,8 @@ pub fn part_two(input: &str) -> Option<usize> {
 
             let tracked: Vec<String> = rules_map
                 .keys()
-                .cloned()
                 .filter(|k| k.ends_with('A'))
+                .cloned()
                 .collect();
 
             let tracked_loops: Vec<usize> = tracked

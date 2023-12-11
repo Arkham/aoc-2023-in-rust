@@ -63,8 +63,7 @@ pub fn part_one(input: &str) -> Option<u32> {
             let rows = grid.len();
             let cols = grid[0].len();
             let (mut map, start_pos) = grid_to_map(grid);
-            // print_map(&map, rows, cols);
-            let visited = explore_and_mark(&mut map, start_pos, rows, cols, false);
+            let visited = explore_and_mark(&mut map, start_pos, rows, cols);
             Some(*visited.values().max().unwrap() as u32)
         }
         Err(e) => panic!("{}", e),
@@ -76,8 +75,9 @@ fn explore_and_mark(
     start_pos: Pos,
     rows: usize,
     cols: usize,
-    debug: bool,
 ) -> HashMap<Pos, i32> {
+    let debug = false;
+
     let mut visited = HashMap::new();
     let mut tracked = vec![start_pos];
     visited.insert(start_pos, 0);
@@ -204,13 +204,13 @@ fn print_map(map: &HashMap<Pos, Tile>, rows: usize, cols: usize) {
     }
 }
 
-pub fn part_two(input: &str, debug: bool) -> Option<u32> {
+pub fn part_two(input: &str) -> Option<u32> {
     match parse_grid(input) {
         Ok((_, grid)) => {
             let rows = grid.len();
             let cols = grid[0].len();
             let (mut map, start_pos) = grid_to_map(grid);
-            let visited = explore_and_mark(&mut map, start_pos, rows, cols, debug);
+            let visited = explore_and_mark(&mut map, start_pos, rows, cols);
             let mut inner_section: HashSet<Pos> = HashSet::new();
             let mut outer_section: HashSet<Pos> = HashSet::new();
 
@@ -234,6 +234,7 @@ pub fn part_two(input: &str, debug: bool) -> Option<u32> {
                 }
             }
 
+            let debug = false;
             if debug {
                 for y in 0..rows {
                     for x in 0..cols {
@@ -283,7 +284,6 @@ L---JF-JLJ.||-FJLJJ7
 7-L-JL7||F7|L7F-7F7|
 L.L7LFJ|||||FJL7||LJ
 L7JLJL-JLJLJL--JLJ.L",
-            false,
         );
         assert_eq!(result, Some(10));
     }
@@ -300,7 +300,6 @@ L7JLJL-JLJLJL--JLJ.L",
 .|..|.|..|.
 .L--J.L--J.
 ...........",
-            false,
         );
         assert_eq!(result, Some(4));
     }
@@ -317,7 +316,6 @@ L7JLJL-JLJLJL--JLJ.L",
 .|..||..|.
 .L--JL--J.
 ..........",
-            false,
         );
         assert_eq!(result, Some(4));
     }
@@ -335,7 +333,6 @@ L--J.L7...LJS7F-7L7.
 .....|FJLJ|FJ|F7|.LJ
 ....FJL-7.||.||||...
 ....L---J.LJ.LJLJ...",
-            false,
         );
 
         assert_eq!(result, Some(8));
